@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Promotions</title>
+</head>
+<body>
+    <h1>Promotions for the Current Month</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Percentage</th>
+        </tr>
+        {% for promo in promotions %}
+        <tr>
+            <td>{{ promo.title }}</td>
+            <td>{{ promo.code }}</td>
+            <td>{{ promo.from_date }}</td>
+            <td>{{ promo.to_date }}</td>
+            <td>{{ promo.percentage }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promotions & Discounts</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="sidebar">
+    <button onclick="toggleSubMenu()">Promotion</button>
+    <div id="submenu" class="submenu">
+      <button onclick="showAddPromotion()">Add Promotion</button>
+      <button onclick="showPromotions()">View Promotions</button>
+      <button onclick="showModifyPromotionOptions()">Modify Promotion</button>
+      <button onclick="showDeletePromotionOptions()">Delete Promotion</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="header">
+      <h1>Welcome to the Promotions and Discount Offers Management Page</h1>
+      <p>Kindly Verify and Issue the Promotion Codes with Management Approval!</p>
+    </div>
+    <div id="promotionForm" class="form-container">
+      <h2>Add a New Promotion</h2>
+      <input type="text" id="promotionTitle" placeholder="Promotion Title">
+      <input type="text" id="promotionCode" placeholder="Promotion Code">
+      <input type="date" id="fromDate" placeholder="From Date">
+      <input type="date" id="toDate" placeholder="To Date">
+      <input type="number" id="percentage" placeholder="Discount Percentage">
+      <button class="action-btn" onclick="addNewPromotion()">Add Promotion</button>
+    </div>
+    <div id="modifyForm" class="form-container">
+      <h2>Modify Promotion</h2>
+      <input type="text" id="modifyTitle" placeholder="Promotion Title">
+      <input type="text" id="modifyCode" placeholder="Promotion Code" readonly>
+      <input type="date" id="modifyFromDate" placeholder="From Date">
+      <input type="date" id="modifyToDate" placeholder="To Date">
+      <input type="number" id="modifyPercentage" placeholder="Discount Percentage">
+      <button class="action-btn" onclick="saveModifiedPromotion()">Save Changes</button>
+    </div>
+    <div id="promotions" class="promotions">
+      <table class="promotion-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Percentage</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="promotionTableBody">
+          <!-- Promotions will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+    <div id="codeList" class="code-list">
+      <h2>Select a Promotion to Modify or Delete</h2>
+      <!-- Promotion codes will be dynamically added here for modify/delete -->
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
