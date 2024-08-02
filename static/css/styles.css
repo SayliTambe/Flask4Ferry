@@ -1,0 +1,116 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+}
+.sidebar {
+  background-color: #333;
+  color: white;
+  width: 250px;
+  padding-top: 20px;
+  position: fixed;
+  height: 100%;
+}
+.sidebar button {
+  display: block;
+  background-color: #444;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 15px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+.sidebar button:hover {
+  background-color: #555;
+}
+.submenu {
+  display: none;
+  background-color: #555;
+}
+.submenu button {
+  background-color: #555;
+  font-size: 1em;
+  padding-left: 30px;
+}
+.submenu button:hover {
+  background-color: #666;
+}
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  flex-grow: 1;
+}
+.header {
+  background-image: url('ferry-banner.jpg');
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 50px 0;
+}
+.header h1 {
+  margin: 0;
+  font-size: 3em;
+  color: #3498db;
+}
+.header p {
+  font-size: 1.5em;
+  color: #3498db;
+}
+.promotions {
+  margin: 20px;
+  display: none;
+}
+.promotion-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.promotion-table th, .promotion-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.promotion-table th {
+  background-color: #f2f2f2;
+  color: black;
+}
+.action-btn {
+  background-color: #7dc6e9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 20px auto;
+  display: block;
+  width: 200px;
+  text-align: center;
+}
+.form-container, .code-list {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.form-container input {
+  width: 300px;
+  padding: 10px;
+  margin: 5px 0;
+}
+.form-container button {
+  width: 200px;
+}
+.code-list button {
+  background-color: #77bae3;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+}
