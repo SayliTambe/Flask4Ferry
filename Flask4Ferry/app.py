@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 # MySQL Configuration for user authentication
 app.config['MYSQL_HOST'] = '144.24.96.48'
-app.config['MYSQL_USER'] = 'Khoji'
-app.config['MYSQL_PASSWORD'] = 'khoji@123'
+app.config['MYSQL_USER'] = 'khoji'
+app.config['MYSQL_PASSWORD'] = 'Khoji@123'
 app.config['MYSQL_DB'] = 'FerryOne'
 app.secret_key = 'ganesh'
 
