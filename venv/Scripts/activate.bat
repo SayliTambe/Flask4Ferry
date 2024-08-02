@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
 set VIRTUAL_ENV=C:\Users\Sayli Tambe\OneDrive\Desktop\TESTINGWITHCLASS\venv
+=======
+set VIRTUAL_ENV=E:\KhojiLabs\VS_Code_Projects\FerryOne\venv
+>>>>>>> bf20a10bdc70ffc81f0b6a8f2dda5e1bfc8acc55
 
 if not defined PROMPT set PROMPT=$P$G
 
