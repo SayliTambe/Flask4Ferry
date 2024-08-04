@@ -7,20 +7,16 @@ from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, timedelta
 
+# Import configuration
+from config import Config
+
 app = Flask(__name__)
+app.config.from_object(Config)
 
 # MySQL Configuration for user authentication
-app.config['MYSQL_HOST'] = '144.24.96.48'
-app.config['MYSQL_USER'] = 'khoji'
-app.config['MYSQL_PASSWORD'] = 'Khoji@123'
-app.config['MYSQL_DB'] = 'FerryOne'
-app.secret_key = 'ganesh'
-
 mysql = MySQL(app)
 
 # SQLAlchemy Configuration for promotion management
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Sayli%40123@localhost/promotion_ferry'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class RegisterForm(FlaskForm):
@@ -31,7 +27,7 @@ class RegisterForm(FlaskForm):
 
     def validate_email(self, field):
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM users where email=%s", (field.data,))
+        cursor.execute("SELECT * FROM users WHERE email=%s", (field.data,))
         user = cursor.fetchone()
         cursor.close()
         if user:
@@ -44,11 +40,12 @@ class LoginForm(FlaskForm):
 
 class Promotion(db.Model):
     __tablename__ = 'promotion'
-    title = db.Column(db.String(100), nullable=False)
-    code = db.Column(db.String(20), nullable=False, unique=True, primary_key=True)
-    from_date = db.Column(db.Date, nullable=False)
-    to_date = db.Column(db.Date, nullable=False)
-    percentage = db.Column(db.Integer, nullable=False)
+    promo_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    promo_title = db.Column(db.String(45), nullable=True)
+    promo_code = db.Column(db.String(45), unique=True, nullable=True)
+    promo_startdt = db.Column(db.String(45), nullable=False)
+    promo_enddt = db.Column(db.String(45), nullable=False)
+    promodisc_amt = db.Column(db.Float, nullable=False)
 
 @app.route('/')
 def promo():
@@ -100,7 +97,7 @@ def dashboard():
         user_id = session['user_id']
 
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM users where id=%s", (user_id,))
+        cursor.execute("SELECT * FROM users WHERE id=%s", (user_id,))
         user = cursor.fetchone()
         cursor.close()
 
@@ -120,19 +117,19 @@ def add_promotion():
     data = request.json
     title = data.get('title')
     code = data.get('code')
-    from_date = data.get('from_date')
-    to_date = data.get('to_date')
-    percentage = data.get('percentage')
+    start_date = data.get('from_date')
+    end_date = data.get('to_date')
+    discount_amount = data.get('percentage')
 
-    if not title or not code or not from_date or not to_date or not percentage:
+    if not title or not code or not start_date or not end_date or not discount_amount:
         return jsonify({'error': 'All fields are required.'}), 400
 
     new_promotion = Promotion(
-        title=title,
-        code=code,
-        from_date=from_date,
-        to_date=to_date,
-        percentage=percentage
+        promo_title=title,
+        promo_code=code,
+        promo_startdt=start_date,
+        promo_enddt=end_date,
+        promodisc_amt=discount_amount
     )
     db.session.add(new_promotion)
     db.session.commit()
@@ -145,11 +142,11 @@ def get_promotions():
     promotion_list = []
     for promo in promotions:
         promotion_list.append({
-            'title': promo.title,
-            'code': promo.code,
-            'from_date': promo.from_date,
-            'to_date': promo.to_date,
-            'percentage': promo.percentage
+            'title': promo.promo_title,
+            'code': promo.promo_code,
+            'from_date': promo.promo_startdt,
+            'to_date': promo.promo_enddt,
+            'percentage': promo.promodisc_amt
         })
     return jsonify({'promotions': promotion_list})
 
@@ -161,18 +158,18 @@ def get_current_month_promotions():
     last_day = next_month.replace(day=1) - timedelta(days=1)
 
     promotions = Promotion.query.filter(
-        Promotion.from_date >= first_day,
-        Promotion.to_date <= last_day
+        Promotion.promo_startdt >= first_day,
+        Promotion.promo_enddt <= last_day
     ).all()
 
     promotion_list = []
     for promo in promotions:
         promotion_list.append({
-            'title': promo.title,
-            'code': promo.code,
-            'from_date': promo.from_date,
-            'to_date': promo.to_date,
-            'percentage': promo.percentage
+            'title': promo.promo_title,
+            'code': promo.promo_code,
+            'from_date': promo.promo_startdt,
+            'to_date': promo.promo_enddt,
+            'percentage': promo.promodisc_amt
         })
     return jsonify({'promotions': promotion_list})
 
@@ -184,15 +181,15 @@ def view_promotions():
     last_day = next_month.replace(day=1) - timedelta(days=1)
 
     promotions = Promotion.query.filter(
-        Promotion.from_date >= first_day,
-        Promotion.to_date <= last_day
+        Promotion.promo_startdt >= first_day,
+        Promotion.promo_enddt <= last_day
     ).all()
 
     return render_template('view_promotions.html', promotions=promotions)
 
 @app.route('/delete_promotion/<string:code>', methods=['DELETE'])
 def delete_promotion(code):
-    promotion = Promotion.query.filter_by(code=code).first_or_404()
+    promotion = Promotion.query.filter_by(promo_code=code).first_or_404()
     db.session.delete(promotion)
     db.session.commit()
     return jsonify({'message': 'Promotion deleted successfully.'})
@@ -200,20 +197,20 @@ def delete_promotion(code):
 @app.route('/modify_promotion/<string:code>', methods=['PUT'])
 def modify_promotion(code):
     data = request.json
-    promotion = Promotion.query.filter_by(code=code).first_or_404()
+    promotion = Promotion.query.filter_by(promo_code=code).first_or_404()
 
     title = data.get('title')
-    from_date = data.get('from_date')
-    to_date = data.get('to_date')
-    percentage = data.get('percentage')
+    start_date = data.get('from_date')
+    end_date = data.get('to_date')
+    discount_amount = data.get('percentage')
 
-    if not title or not from_date or not to_date or not percentage:
+    if not title or not start_date or not end_date or not discount_amount:
         return jsonify({'error': 'All fields are required.'}), 400
 
-    promotion.title = title
-    promotion.from_date = from_date
-    promotion.to_date = to_date
-    promotion.percentage = percentage
+    promotion.promo_title = title
+    promotion.promo_startdt = start_date
+    promotion.promo_enddt = end_date
+    promotion.promodisc_amt = discount_amount
 
     db.session.commit()
     return jsonify({'message': 'Promotion modified successfully.'})

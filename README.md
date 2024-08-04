@@ -1,2 +1,0 @@
-# flask-mysql-auth-system
-
