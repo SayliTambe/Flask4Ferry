@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
 from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 # Import configuration
 from config import Config
@@ -175,17 +175,15 @@ def get_current_month_promotions():
 
 @app.route('/view_promotions')
 def view_promotions():
-    today = date.today()
-    first_day = today.replace(day=1)
-    next_month = today.replace(day=28) + timedelta(days=4)
-    last_day = next_month.replace(day=1) - timedelta(days=1)
+    today = datetime.now().date()
 
+    # Filter promotions based on the current date
     promotions = Promotion.query.filter(
-        Promotion.promo_startdt >= first_day,
-        Promotion.promo_enddt <= last_day
+        Promotion.promo_startdt <= today,
+        Promotion.promo_enddt >= today
     ).all()
 
-    return render_template('view_promotions.html', promotions=promotions)
+    return render_template('veiw_promotions.html', promotions=promotions)
 
 @app.route('/delete_promotion/<string:code>', methods=['DELETE'])
 def delete_promotion(code):

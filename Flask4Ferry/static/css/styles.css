@@ -68,10 +68,12 @@ body {
 .promotion-table {
   width: 100%;
   border-collapse: collapse;
+  
 }
 .promotion-table th, .promotion-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 15px;
+  min-width: 150px;
   text-align: center;
 }
 .promotion-table th {
@@ -114,3 +116,39 @@ body {
   width: 200px;
   text-align: center;
 }
+
+/* General table styling */
+table {
+  width: 100%; /* Make the table fill the full width of its container */
+  border-collapse: collapse; /* Remove gaps between cells */
+  margin: 20px 0; /* Add some margin above and below the table */
+  font-size: 18px; /* Increase the font size for better readability */
+}
+
+/* Table header styling */
+th {
+  background-color: #f2f2f2; /* Light grey background for headers */
+  color: #333; /* Darker text color for headers */
+  padding: 15px; /* Increase padding for headers */
+  text-align: left; /* Align text to the left */
+  border-bottom: 2px solid #ddd; /* Add a solid border below headers */
+}
+
+/* Table cell styling */
+td {
+  padding: 10px; /* Increase padding for table cells */
+  text-align: left; /* Align text to the left */
+  border-bottom: 1px solid #ddd; /* Add a solid border below cells */
+}
+
+/* Responsive table on smaller screens */
+@media screen and (max-width: 600px) {
+  table {
+      font-size: 16px; /* Slightly smaller font size on small screens */
+  }
+
+  th, td {
+      padding: 10px; /* Reduce padding on small screens */
+  }
+}
+

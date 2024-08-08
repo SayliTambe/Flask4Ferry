@@ -6,7 +6,7 @@
     <title>View Promotions</title>
 </head>
 <body>
-    <h1>Promotions for the Current Month</h1>
+    <h1>Active Promotions</h1>
     <table border="1">
         <tr>
             <th>Title</th>
@@ -17,11 +17,11 @@
         </tr>
         {% for promo in promotions %}
         <tr>
-            <td>{{ promo.title }}</td>
-            <td>{{ promo.code }}</td>
-            <td>{{ promo.from_date }}</td>
-            <td>{{ promo.to_date }}</td>
-            <td>{{ promo.percentage }}</td>
+            <td>{{ promo.promo_title }}</td>
+            <td>{{ promo.promo_code }}</td>
+            <td>{{ promo.promo_startdt }}</td>
+            <td>{{ promo.promo_enddt }}</td>
+            <td>{{ promo.promodisc_amt }}</td>
         </tr>
         {% endfor %}
     </table>
