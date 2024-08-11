@@ -129,10 +129,10 @@ function showPromotions() {
 
 function addNewPromotion() {
   const promotionData = {
-    title: document.getElementById('title').value,
-    code: document.getElementById('code').value,
-    from_date: document.getElementById('from_date').value,
-    to_date: document.getElementById('to_date').value,
+    title: document.getElementById('promotionTitle').value,
+    code: document.getElementById('promotionCode').value,
+    from_date: document.getElementById('fromDate').value,
+    to_date: document.getElementById('toDate').value,
     percentage: document.getElementById('percentage').value,
   };
 
