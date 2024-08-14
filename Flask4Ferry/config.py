@@ -13,3 +13,5 @@ class Config:
     # SQLAlchemy configuration
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://khoji:Khoji%40123@144.24.96.48:3306/FerryOne'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+

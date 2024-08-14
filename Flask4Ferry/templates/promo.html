@@ -15,7 +15,22 @@
       <button onclick="showModifyPromotionOptions()">Modify Promotion</button>
       <button onclick="showDeletePromotionOptions()">Delete Promotion</button>
     </div>
+    <button onclick="toggleFerriesSubMenu()">Ferries</button>
+    <div id="ferriesSubMenu" class="submenu">
+      <button onclick="showAddFerry()">Add Ferry</button>
+      <button onclick="showModifyFerry()">Modify Ferry</button>
+      <button onclick="showDeleteFerry()">Delete Ferry</button>
+    </div>
+    <button onclick="showPorts()">Ports</button>
+    <button onclick="showFerries()">Ferries</button>
+    <button onclick="showNodalPoints()">Nodal Points</button>
+    <button onclick="showItinerary()">Itinerary</button>
+    <button onclick="showBookings()">Bookings</button>
   </div>
+
+  
+
+
   <div class="content">
     <div class="header">
       <h1>Welcome to the Promotions and Discount Offers Management Page</h1>
@@ -29,6 +44,40 @@
       <input type="date" id="toDate" placeholder="To Date">
       <input type="number" id="percentage" placeholder="Discount Percentage">
       <button class="action-btn" onclick="addNewPromotion()">Add Promotion</button>
+    </div>
+    <!-- Add new sections here for each sidebar option -->
+    <div id="ports" class="form-container">
+      <h2></h2>
+      <!-- Content for Ports -->
+    </div>
+    <div id="ferries" class="form-container">
+      <h2></h2>
+      <div id="addFerryForm" class="form-container">
+        <h2>Add a New Ferry</h2>
+        <!-- Add inputs and a button for adding a new ferry -->
+      </div>
+      <div id="modifyFerryForm" class="form-container">
+        <h2>Modify Ferry</h2>
+        <!-- Add inputs and a button for modifying an existing ferry -->
+      </div>
+      <div id="deleteFerryForm" class="form-container">
+        <h2>Delete Ferry</h2>
+        <!-- Add inputs and a button for deleting an existing ferry -->
+      </div>
+      
+      <!-- Content for Ferries -->
+    </div>
+    <div id="nodalPoints" class="form-container">
+      <h2></h2>
+      <!-- Content for Nodal Points -->
+    </div>
+    <div id="itinerary" class="form-container">
+      <h2></h2>
+      <!-- Content for Itinerary -->
+    </div>
+    <div id="bookings" class="form-container">
+      <h2>Bookings</h2>
+      <!-- Content for Bookings -->
     </div>
     <div id="modifyForm" class="form-container">
       <h2>Modify Promotion</h2>

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('ferriesSubMenu').style.display = 'none'; // Initially hide Ferries submenu
   // Initialize event listeners
   document.getElementById('addPromotionBtn').addEventListener('click', showAddPromotion);
   document.getElementById('modifyPromotionBtn').addEventListener('click', showModifyPromotionOptions);
@@ -157,3 +158,30 @@ function hideAllSections() {
   document.getElementById('promotions').style.display = 'none';
   document.getElementById('modifyForm').style.display = 'none';
 }
+
+
+
+function toggleFerriesSubMenu() {
+  const submenu = document.getElementById('ferriesSubMenu');
+  submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+}
+
+function showAddFerry() {
+  hideAllSections();
+  // Display the form for adding a ferry (needs to be defined in your HTML)
+  document.getElementById('addFerryForm').style.display = 'flex';
+}
+
+function showModifyFerry() {
+  hideAllSections();
+  // Display the form for modifying a ferry (needs to be defined in your HTML)
+  document.getElementById('modifyFerryForm').style.display = 'flex';
+}
+
+function showDeleteFerry() {
+  hideAllSections();
+  // Display the form for deleting a ferry (needs to be defined in your HTML)
+  document.getElementById('deleteFerryForm').style.display = 'flex';
+}
+
+
